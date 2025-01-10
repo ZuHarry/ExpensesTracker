@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#81bb7b">
 
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +24,80 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:text="Your Expenses Helper" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_rectangle">
+
+        <TextView
+            android:id="@+id/textViewUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed-medium" />
+
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:hint="Enter Your Username"
+            android:background="@drawable/rounded_rectangle_textview"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <TextView
+            android:id="@+id/textViewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-condensed-medium" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:hint="Enter Your Password"
+            android:background="@drawable/rounded_rectangle_textview"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGN IN"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:backgroundTint="@color/design_default_color_on_secondary"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"/>
+
+
+    </LinearLayout>
 
 </LinearLayout>
