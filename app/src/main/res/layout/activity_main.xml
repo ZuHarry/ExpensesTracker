@@ -9,23 +9,47 @@
     tools:context=".MainActivity"
     android:background="#81bb7b">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="60dp"
-        android:textSize="30dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="EXPENSE TRACKER" />
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textAlignment="center">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="20dp"
-        android:text="Your Expenses Helper" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/calculator"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginEnd="20dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="EXPENSE TRACKER"
+                android:textSize="20dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Your Expenses Helper"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -96,6 +120,33 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp"/>
+
+        <TextView
+            android:id="@+id/textViewNoAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doesn't Have An Account?"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium" />
+
+
+        <TextView
+            android:id="@+id/textViewSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up Here"
+            android:textAlignment="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium" />
 
 
     </LinearLayout>
