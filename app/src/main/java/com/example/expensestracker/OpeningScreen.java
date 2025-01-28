@@ -25,7 +25,7 @@ public class OpeningScreen extends AppCompatActivity {
 
         // Delay for 3 seconds before launching MainActivity
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(OpeningScreen.this, MainActivity.class);
+            Intent intent = new Intent(OpeningScreen.this, LoginActivity.class);
             startActivity(intent);
             finish(); // Close the splash activity
         }, 3000); // 3000 milliseconds = 3 seconds

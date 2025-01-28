@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- Background color of the navigation view -->
+    <corners android:radius="50dp" /> <!-- Corner radius for rounded corners -->
+</shape>
