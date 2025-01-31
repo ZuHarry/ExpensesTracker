@@ -1,5 +1,6 @@
 package com.example.expensestracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    ImageView addExpensesImageView, editExpensesImageView, deleteExpensesImageView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +63,36 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Initialize ImageView using the inflated view
+        addExpensesImageView = view.findViewById(R.id.imageView3);  // Make sure R.id.imageView3 is in your fragment_home.xml
+        editExpensesImageView = view.findViewById(R.id.imageViewEditExpenses);  // Make sure R.id.imageView3 is in your fragment_home.xml
+        deleteExpensesImageView = view.findViewById(R.id.imageViewDeleteExpenses);  // Make sure R.id.imageView3 is in your fragment_home.xml
+
+        // Set click listener
+        addExpensesImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddExpense.class); // Replace AddExpenseActivity
+            startActivity(intent);
+        });
+
+        // Set click listener
+        editExpensesImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditExpenses.class); // Replace AddExpenseActivity
+            startActivity(intent);
+        });
+
+        // Set click listener
+        deleteExpensesImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditExpenses.class); // Replace AddExpenseActivity
+            startActivity(intent);
+        });
+
+        return view; // Return the inflated view
+
+        //return inflater.inflate(R.layout.fragment_home, container, false);
+
     }
+
+
 }
