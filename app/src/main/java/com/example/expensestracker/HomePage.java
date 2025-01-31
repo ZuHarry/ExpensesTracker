@@ -43,7 +43,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
          if (fragment != null) {
              getSupportFragmentManager()
                      .beginTransaction()
+                     .setCustomAnimations(
+                             R.anim.slide_in_right,  // Enter animation
+                             R.anim.slide_out_left,  // Exit animation
+                             R.anim.pop_enter,       // Pop backstack enter animation
+                             R.anim.pop_exit         // Pop backstack exit animation
+                     )
                      .replace(R.id.frame_layout, fragment)
+                     .addToBackStack(null) // Enables back navigation with animation
                      .commit();
              return true;
          }

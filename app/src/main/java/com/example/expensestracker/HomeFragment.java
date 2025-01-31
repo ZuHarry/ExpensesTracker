@@ -7,19 +7,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
 public class HomeFragment extends Fragment {
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,29 +62,46 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Find the ImageView using view
         ImageView imageViewAddExpenses = view.findViewById(R.id.imageViewAddExpenses);
-        TextView textViewAddExpenses = view.findViewById(R.id.textViewAddExpenses);
+        ImageView imageViewEditExpenses = view.findViewById(R.id.imageViewEditExpenses);
+        Fragment selectedFragment = null;
 
-        imageViewAddExpenses.setOnClickListener(new View.OnClickListener() {
+        // Example: Set an onClickListener
+        imageViewAddExpenses.setOnClickListener(v -> {
+            // Handle click event
+            loadFragment(new AddExpenseFragment());
+            //BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
-
-                textViewAddExpenses.setText("Button Clicked");
-
-                new android.os.Handler().postDelayed(() -> {
-                    // Code to execute after delay
-                    textViewAddExpenses.setText("Add Expenses");
-                }, 3000); // 3000ms = 3 seconds
-            }
         });
 
+        // Example: Set an onClickListener
+        imageViewEditExpenses.setOnClickListener(v -> {
+            // Handle click event
+            loadFragment(new EditExpenseFragment());
+            //BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+
+        });
         return view;
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.slide_in_right,  // Enter animation
+                            R.anim.slide_out_left,  // Exit animation
+                            R.anim.pop_enter,       // Pop backstack enter animation
+                            R.anim.pop_exit         // Pop backstack exit animation
+                    )
+                    .replace(R.id.frame_layout, fragment)
+                    .addToBackStack(null) // Enables back navigation with animation
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }

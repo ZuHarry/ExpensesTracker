@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#1ACF9A"
     tools:context=".HomePage">
 
     <FrameLayout
@@ -25,7 +26,6 @@
         android:elevation="8dp"
         android:background="@drawable/rounded_nav_background"
         app:labelVisibilityMode="labeled"
-        app:itemBackground="@color/background_selector"
         app:itemIconTint="@color/selector_nav_item"
         app:itemTextColor="@color/selector_nav_item" />
 
