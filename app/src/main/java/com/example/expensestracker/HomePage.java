@@ -29,6 +29,7 @@ import com.example.expensestracker.model.Expense;
 import com.example.expensestracker.model.ExpenseCategory;
 import com.example.expensestracker.model.ExpenseIncomeItem;
 import com.example.expensestracker.sqlite.DatabaseExpense;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +51,7 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
     private TextView tvTotalBalanceValue;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private BottomSheetDialog bottomSheetDialog; // Declare BottomSheetDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,26 +87,25 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
         btnIncome.setOnClickListener(v -> showIncomeSection());
 
         fabAdd = findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(v -> showAddExpenseIncomeDialog());
+        fabAdd.setOnClickListener(v -> showAddExpenseIncomeBottomSheet()); // Use BottomSheet
 
         showExpenseSection();
         updateTotalBalance();
     }
 
-    private void showAddExpenseIncomeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_add_expense_income, null);
-        builder.setView(dialogView);
+    private void showAddExpenseIncomeBottomSheet() { // Update to use BottomSheet
+        bottomSheetDialog = new BottomSheetDialog(this);
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.dialog_add_expense_income, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
 
-        EditText etDescription = dialogView.findViewById(R.id.etDescription);
-        EditText etAmount = dialogView.findViewById(R.id.etAmount);
-        AutoCompleteTextView spinnerCategory = dialogView.findViewById(R.id.spinnerCategory);
-        RadioGroup radioGroupType = dialogView.findViewById(R.id.radioGroupType);
-        RadioButton radioExpense = dialogView.findViewById(R.id.radioExpense);
-        Button btnAdd = dialogView.findViewById(R.id.btnAdd);
-        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
-        EditText etDate = dialogView.findViewById(R.id.etDate);
+        EditText etDescription = bottomSheetView.findViewById(R.id.etDescription);
+        EditText etAmount = bottomSheetView.findViewById(R.id.etAmount);
+        AutoCompleteTextView spinnerCategory = bottomSheetView.findViewById(R.id.spinnerCategory);
+        RadioGroup radioGroupType = bottomSheetView.findViewById(R.id.radioGroupType);
+        RadioButton radioExpense = bottomSheetView.findViewById(R.id.radioExpense);
+        Button btnAdd = bottomSheetView.findViewById(R.id.btnAdd);
+        Button btnCancel = bottomSheetView.findViewById(R.id.btnCancel);
+        EditText etDate = bottomSheetView.findViewById(R.id.etDate);
 
         // Set up Date Picker for etDate
         etDate.setOnClickListener(v -> {
@@ -135,7 +136,6 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
                 .collect(Collectors.toList());
         categoryNames.add("Income"); // Add "Income" as a category
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, categoryNames);
-        // No need to setDropDownViewResource for AutoCompleteTextView
         spinnerCategory.setAdapter(spinnerAdapter);
 
         spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -146,12 +146,9 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
             }
         });
 
-        AlertDialog dialog = builder.create();
-
         btnAdd.setOnClickListener(v -> {
             String description = etDescription.getText().toString().trim();
             String amountString = etAmount.getText().toString().trim();
-            // Get the selected item from the AutoCompleteTextView
             String category = spinnerCategory.getText().toString();
             String date = etDate.getText().toString().trim();
             boolean isExpense = radioExpense.isChecked();
@@ -169,7 +166,6 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
                 return;
             }
 
-            // Set category to "Income" if income is selected
             if (!isExpense) {
                 category = "Income";
             }
@@ -189,12 +185,13 @@ public class HomePage extends AppCompatActivity implements ExpenseCategoryAdapte
                 showIncomeSection();
             }
 
-            dialog.dismiss();
+            bottomSheetDialog.dismiss(); // Dismiss the BottomSheet
         });
 
-        btnCancel.setOnClickListener(v -> dialog.dismiss());
+        btnCancel.setOnClickListener(v -> bottomSheetDialog.dismiss()); // Dismiss the BottomSheet
 
-        dialog.show();
+        bottomSheetDialog.show(); // Show the BottomSheet
+        updateTotalBalance();
     }
 
     private void showExpenseSection() {
