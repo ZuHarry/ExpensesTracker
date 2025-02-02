@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1ACF9A"
-    tools:context=".HomeFragment">
+    tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -76,128 +76,138 @@
             android:textAlignment="center"
             android:layout_marginTop="20dp"/>
 
-        <LinearLayout
-            android:background="@drawable/card_background"            android:id="@+id/layoutQuickActions"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginEnd="30dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_gravity="center">
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <ImageView
-                        android:id="@+id/imageViewAddExpenses"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/add_expenses" />
-
-                    <TextView
-                        android:id="@+id/textViewAddExpenses"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:text="Add Expenses"
-                        android:layout_marginTop="10dp"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:textAlignment="center"
-                    android:layout_marginStart="50dp">
-
-                    <ImageView
-                        android:id="@+id/imageViewEditExpenses"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/edit_expenses" />
-
-                    <TextView
-                        android:id="@+id/textViewEditExpenses"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:text="Edit Expenses"
-                        android:layout_marginTop="10dp"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp">
-
-                <LinearLayout
+                    android:id="@+id/layoutQuickActions"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/card_background"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageViewViewExpenses"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/view_expenses" />
-
-                    <TextView
-                        android:id="@+id/textViewViewExpenses"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:text="View Expenses"
-                        android:layout_marginTop="10dp"
-                        android:textAlignment="center"/>
-                </LinearLayout>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:textAlignment="center"
-                    android:layout_marginStart="50dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
 
-                    <ImageView
-                        android:id="@+id/imageViewDeleteExpenses"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:src="@drawable/delete_expenses" />
+                            <ImageView
+                                android:id="@+id/imageViewAddExpenses"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/add_expenses" />
 
-                    <TextView
-                        android:id="@+id/textViewDeleteExpenses"
-                        android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/textViewAddExpenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="sans-serif-condensed-medium"
+                                android:text="Add Expenses"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="50dp"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewEditExpenses"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/edit_expenses" />
+
+                            <TextView
+                                android:id="@+id/textViewEditExpenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="sans-serif-condensed-medium"
+                                android:text="Edit Expenses"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-medium"
-                        android:text="Delete Expenses"
-                        android:layout_marginTop="10dp"
-                        android:textAlignment="center"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageViewViewExpenses"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/view_expenses" />
+
+                            <TextView
+                                android:id="@+id/textViewViewExpenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="sans-serif-condensed-medium"
+                                android:text="View Expenses"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:orientation="vertical"
+                            android:textAlignment="center">
+
+
+                            <ImageView
+                                android:id="@+id/imageViewDeleteExpenses"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:src="@drawable/delete_expenses" />
+
+                            <TextView
+                                android:id="@+id/textViewDeleteExpenses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="sans-serif-condensed-medium"
+                                android:text="Delete Expenses"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
                 </LinearLayout>
-
-
             </LinearLayout>
-        </LinearLayout>
-
-
+        </ScrollView>
 
 
     </LinearLayout>

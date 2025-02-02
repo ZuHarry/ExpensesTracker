@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#1ACF9A"
-    tools:context=".AddExpenseFragment">
+    tools:context=".fragment.AddExpenseFragment">
 
     <TextView
         android:id="@+id/total_balance_label"

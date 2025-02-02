@@ -1,4 +1,4 @@
-package com.example.expensestracker;
+package com.example.expensestracker.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -1,17 +1,19 @@
-package com.example.expensestracker;
+package com.example.expensestracker.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.expensestracker.CustomPieChartView;
+import com.example.expensestracker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +108,7 @@ public class ExpenseFragment extends Fragment {
 
         @Override
         public ExpenseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_item_v2, parent, false);
             return new ExpenseViewHolder(view);
         }
 

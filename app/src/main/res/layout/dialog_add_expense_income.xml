@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/rounded_corner_background">
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Record"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/greenz"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        app:hintTextColor="@color/greenz"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:textSize="16sp"
+            android:textColor="@color/dark_gray"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        app:hintTextColor="@color/greenz"
+        android:layout_marginTop="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="16sp"
+            android:textColor="@color/dark_gray"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSpinnerCategory"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Category"
+        app:hintTextColor="@color/greenz">
+
+        <AutoCompleteTextView
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textSize="16sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Date"
+        app:hintTextColor="@color/greenz"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textSize="16sp"
+            android:textColor="@color/dark_gray"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense"
+            android:checked="true"
+            android:textSize="16sp"
+            android:textColor="@color/dark_gray"
+            android:buttonTint="@color/greenz"
+            android:layout_marginEnd="20dp"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income"
+            android:textSize="16sp"
+            android:textColor="@color/dark_gray"
+            android:buttonTint="@color/greenz"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancel"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_marginEnd="10dp"
+            app:backgroundTint="@color/light_gray"
+            android:textColor="@color/greenz"
+            app:cornerRadius="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAdd"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            app:backgroundTint="@color/greenz"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp"/>
+    </LinearLayout>
+</LinearLayout>

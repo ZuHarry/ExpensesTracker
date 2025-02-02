@@ -1,4 +1,4 @@
-package com.example.expensestracker;
+package com.example.expensestracker.fragment;
 
 import android.os.Bundle;
 
@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.expensestracker.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +66,7 @@ public class HomeFragment extends Fragment {
         // Find the ImageView using view
         ImageView imageViewAddExpenses = view.findViewById(R.id.imageViewAddExpenses);
         ImageView imageViewEditExpenses = view.findViewById(R.id.imageViewEditExpenses);
+        ImageView imageViewViewExpenses = view.findViewById(R.id.imageViewViewExpenses);
         Fragment selectedFragment = null;
 
         // Example: Set an onClickListener
@@ -81,6 +81,13 @@ public class HomeFragment extends Fragment {
         imageViewEditExpenses.setOnClickListener(v -> {
             // Handle click event
             loadFragment(new EditExpenseFragment());
+            //BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+
+        });
+
+        imageViewViewExpenses.setOnClickListener(v -> {
+            // Handle click event
+            loadFragment(new HomeExpenseFragment());
             //BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
         });

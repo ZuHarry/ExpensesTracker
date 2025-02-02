@@ -1,14 +1,13 @@
  package com.example.expensestracker;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+
+import com.example.expensestracker.fragment.ExpenseFragment;
+import com.example.expensestracker.fragment.HomeFragment;
+import com.example.expensestracker.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
  public class HomePage extends AppCompatActivity {
