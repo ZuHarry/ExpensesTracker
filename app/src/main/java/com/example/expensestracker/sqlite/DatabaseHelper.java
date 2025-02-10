@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "ExpenseTrackerDB";
+    private static final String DATABASE_NAME = "ExpenseTracker.db";
     private static final String TABLE_NAME = "user";
     private static final String COL_ID = "id";
     private static final String COL_USERNAME = "name";
@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;  // Add this line
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 1);
         this.context = context;  // Store context to use it for SharedPreferences
     }
 

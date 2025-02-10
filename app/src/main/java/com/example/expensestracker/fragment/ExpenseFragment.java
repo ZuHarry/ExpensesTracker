@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.expensestracker.CustomPieChartView;
 import com.example.expensestracker.R;
+import com.example.expensestracker.model.Expense;
+import com.example.expensestracker.sqlite.DatabaseExpense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,38 +45,52 @@ public class ExpenseFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        expenseButton.setOnClickListener(v -> setExpenseMode());
+        expenseButton.setOnClickListener(v -> setExpenseMode("02", "2025"));
         incomeButton.setOnClickListener(v -> setIncomeMode());
 
-        setExpenseMode(); // Initial mode
+        setExpenseMode("02", "2025");
         return view;
     }
 
-    private void setExpenseMode() {
+    private void setExpenseMode(String month, String year) {
         expenseButton.setBackgroundResource(R.drawable.toggle_left);
         expenseButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
         incomeButton.setBackgroundResource(R.drawable.toggle_right);
         incomeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
 
-        balanceTextView.setText("$9400");
+        DatabaseExpense db = new DatabaseExpense(getContext());
+        double totalExpense = db.getTotalExpenseByMonth(month, year);
+        balanceTextView.setText(String.format("$%.2f", totalExpense));
 
-        int yellow = ContextCompat.getColor(requireContext(), R.color.yellow);
-        int purple = ContextCompat.getColor(requireContext(), R.color.purple);
-        int red = ContextCompat.getColor(requireContext(), R.color.red);
-
-        List<CustomPieChartView.PieData> pieDataList = new ArrayList<>();
-        pieDataList.add(new CustomPieChartView.PieData(33.3f, yellow));
-        pieDataList.add(new CustomPieChartView.PieData(33.3f, purple));
-        pieDataList.add(new CustomPieChartView.PieData(33.4f, red));
-        pieChartView.setPieData(pieDataList);
-
-        expenseItems = new ArrayList<>();
-        expenseItems.add(new ExpenseItem("Shopping", 120, yellow));
-        expenseItems.add(new ExpenseItem("Subscription", 80, purple));
-        expenseItems.add(new ExpenseItem("Food", 32, red));
-        adapter = new ExpenseAdapter(expenseItems);
-        recyclerView.setAdapter(adapter);
+        loadExpenseSummary(month, year); // Load data ikut bulan dan tahun
     }
+
+
+//    private void setExpenseMode() {
+//        expenseButton.setBackgroundResource(R.drawable.toggle_left);
+//        expenseButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+//        incomeButton.setBackgroundResource(R.drawable.toggle_right);
+//        incomeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+//
+//        balanceTextView.setText("$9400");
+//
+//        int yellow = ContextCompat.getColor(requireContext(), R.color.yellow);
+//        int purple = ContextCompat.getColor(requireContext(), R.color.purple);
+//        int red = ContextCompat.getColor(requireContext(), R.color.red);
+//
+//        List<CustomPieChartView.PieData> pieDataList = new ArrayList<>();
+//        pieDataList.add(new CustomPieChartView.PieData(33.3f, yellow));
+//        pieDataList.add(new CustomPieChartView.PieData(33.3f, purple));
+//        pieDataList.add(new CustomPieChartView.PieData(33.4f, red));
+//        pieChartView.setPieData(pieDataList);
+//
+//        expenseItems = new ArrayList<>();
+//        expenseItems.add(new ExpenseItem("Shopping", 120, yellow));
+//        expenseItems.add(new ExpenseItem("Subscription", 80, purple));
+//        expenseItems.add(new ExpenseItem("Food", 32, red));
+//        adapter = new ExpenseAdapter(expenseItems);
+//        recyclerView.setAdapter(adapter);
+//    }
 
     private void setIncomeMode() {
         incomeButton.setBackgroundResource(R.drawable.toggle_left);
@@ -98,6 +114,42 @@ public class ExpenseFragment extends Fragment {
         adapter = new ExpenseAdapter(expenseItems);
         recyclerView.setAdapter(adapter);
     }
+
+    private void loadExpenseSummary(String month, String year) {
+        DatabaseExpense db = new DatabaseExpense(getContext());
+        List<Expense> filteredExpenses = db.getExpensesByMonth(month, year);
+
+        List<CustomPieChartView.PieData> pieDataList = new ArrayList<>();
+        expenseItems = new ArrayList<>();
+
+        int[] colors = {
+                ContextCompat.getColor(requireContext(), R.color.yellow),
+                ContextCompat.getColor(requireContext(), R.color.purple),
+                ContextCompat.getColor(requireContext(), R.color.red),
+                ContextCompat.getColor(requireContext(), R.color.green),
+                ContextCompat.getColor(requireContext(), R.color.blue)
+        };
+
+        int colorIndex = 0;
+
+        for (Expense expense : filteredExpenses) {
+            if (colorIndex >= colors.length) colorIndex = 0; // Reset color jika lebih
+            int color = colors[colorIndex];
+
+            // Tambah data dalam PieChart
+            pieDataList.add(new CustomPieChartView.PieData((float) expense.getAmount(), color));
+
+            // Tambah data dalam RecyclerView
+            expenseItems.add(new ExpenseItem(expense.getCategory(), (int) expense.getAmount(), color));
+
+            colorIndex++;
+        }
+
+        pieChartView.setPieData(pieDataList);
+        adapter = new ExpenseAdapter(expenseItems);
+        recyclerView.setAdapter(adapter);
+    }
+
 
     static class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder> {
         private List<ExpenseItem> expenseItems;
