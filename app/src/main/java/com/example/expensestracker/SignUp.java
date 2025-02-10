@@ -22,6 +22,7 @@ public class SignUp extends AppCompatActivity {
     DatabaseHelper db;
     EditText editTextUsername, editTextFullname, editTextEmail, editTextPassword;
     Button buttonSignUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,8 @@ public class SignUp extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextSignUsername);
         editTextPassword = findViewById(R.id.editTextSignPassword);
 
+        // Initialize the DatabaseHelper instance
+        db = new DatabaseHelper(this);
 
         backLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +55,9 @@ public class SignUp extends AppCompatActivity {
         buttonSignUp.setOnClickListener(this::insertUser);
     }
 
-    public void insertUser(View view){
+    public void insertUser(View view) {
         boolean isInserted = db.insertUserData(editTextUsername.getText().toString(),
-                editTextUsername.getText().toString(), editTextEmail.getText().toString(),
+                editTextFullname.getText().toString(), editTextEmail.getText().toString(),
                 editTextPassword.getText().toString());
         if (isInserted)
             Toast.makeText(SignUp.this, "Data Inserted", Toast.LENGTH_SHORT).show();

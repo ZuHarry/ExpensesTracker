@@ -2,14 +2,6 @@ package com.example.expensestracker.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +16,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.expensestracker.HomePage;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.expensestracker.R;
 import com.example.expensestracker.adapter.ExpenseCategoryAdapter;
 import com.example.expensestracker.adapter.ExpenseIncomeAdapter;
@@ -35,6 +33,7 @@ import com.example.expensestracker.sqlite.DatabaseExpense;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,11 +42,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeExpenseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class HomeExpenseFragment extends Fragment {
 
     private TextView tvBottomSheetTitle;
@@ -59,6 +54,7 @@ public class HomeExpenseFragment extends Fragment {
     private DatabaseExpense databaseExpense;
     private FloatingActionButton fabAdd;
     private TextView tvTotalBalanceValue;
+    private TextView dateTimeTextView;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private BottomSheetDialog bottomSheetDialog; // Declare BottomSheetDialog
@@ -110,6 +106,7 @@ public class HomeExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_expense, container, false);
         return view; // Do not re-inflate again
+
     }
 
     @Override
@@ -118,6 +115,9 @@ public class HomeExpenseFragment extends Fragment {
 
         databaseExpense = new DatabaseExpense(requireActivity());
 
+
+        dateTimeTextView = view.findViewById(R.id.dateTime);
+        updateCurrentDate();
         btnExpense = view.findViewById(R.id.btnExpense);
         btnIncome = view.findViewById(R.id.btnIncome);
         fabAdd = view.findViewById(R.id.fabAdd);
@@ -151,6 +151,13 @@ public class HomeExpenseFragment extends Fragment {
         updateTotalBalance();
     }
 
+
+    private void updateCurrentDate() {
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMMM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+        dateTimeTextView.setText(formattedDate);
+    }
 
 
     private void showAddExpenseIncomeBottomSheet() { // Update to use BottomSheet
@@ -234,7 +241,7 @@ public class HomeExpenseFragment extends Fragment {
             newExpense.setAmount(amount);
             newExpense.setDate(date);
             newExpense.setCategory(category);
-            newExpense.setDate(dateFormat.format(new Date()));
+            //  newExpense.setDate(dateFormat.format(new Date())); //Use selected date instead
 
             databaseExpense.addExpense(newExpense);
 
@@ -279,6 +286,7 @@ public class HomeExpenseFragment extends Fragment {
 
         rvExpenseCategoryList.setVisibility(View.GONE);
 
+        // Always show all income, regardless of the week
         List<Expense> incomes = databaseExpense.getExpensesByCategory("Income");
         List<ExpenseIncomeItem> incomeItems = incomes.stream()
                 .map(expense -> new ExpenseIncomeItem(
@@ -294,7 +302,8 @@ public class HomeExpenseFragment extends Fragment {
     public void onCategoryClick(ExpenseCategory category) {
         Log.d("HomePage", "Category clicked: " + category.getName());
 
-        List<Expense> expenses = databaseExpense.getExpensesByCategory(category.getName());
+        List<Expense> expenses = getExpensesForCurrentWeekByCategory(category.getName());
+
         List<ExpenseIncomeItem> filteredItems = expenses.stream()
                 .map(expense -> new ExpenseIncomeItem(
                         Expense.getCategoryIconMap().getOrDefault(expense.getCategory(), R.drawable.other),
@@ -306,12 +315,67 @@ public class HomeExpenseFragment extends Fragment {
         adapter.updateItems(filteredItems);
     }
 
+    private List<Expense> getExpensesForCurrentWeekByCategory(String category) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+        Date startOfWeek = cal.getTime();
+
+        cal.add(Calendar.DAY_OF_WEEK, 7);
+        Date endOfWeek = cal.getTime();
+
+        List<Expense> allExpenses = databaseExpense.getExpensesByCategory(category);
+        List<Expense> filteredExpenses = new ArrayList<>();
+
+        for (Expense expense : allExpenses) {
+            try {
+                Date expenseDate = dateFormat.parse(expense.getDate());
+                if (expenseDate != null && expenseDate.compareTo(startOfWeek) >= 0 && expenseDate.compareTo(endOfWeek) < 0) {
+                    filteredExpenses.add(expense);
+                }
+            } catch (ParseException e) {
+                Log.e("HomeExpenseFragment", "Error parsing date: " + expense.getDate(), e);
+            }
+        }
+
+        return filteredExpenses;
+    }
+
+    private List<Expense> getExpensesForCurrentWeek() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+        Date startOfWeek = cal.getTime();
+
+        cal.add(Calendar.DAY_OF_WEEK, 7);
+        Date endOfWeek = cal.getTime();
+
+        List<Expense> allExpenses = databaseExpense.getAllExpenses();
+        List<Expense> filteredExpenses = new ArrayList<>();
+
+        for (Expense expense : allExpenses) {
+            try {
+                Date expenseDate = dateFormat.parse(expense.getDate());
+                if (expenseDate != null && expenseDate.compareTo(startOfWeek) >= 0 && expenseDate.compareTo(endOfWeek) < 0) {
+                    filteredExpenses.add(expense);
+                }
+            } catch (ParseException e) {
+                Log.e("HomeExpenseFragment", "Error parsing date: " + expense.getDate(), e);
+            }
+        }
+
+        return filteredExpenses;
+    }
+
+
     private void updateTotalBalance() {
+        List<Expense> currentWeekExpenses = getExpensesForCurrentWeek();
+
+        // Total income is *always* all income, not just this week
         double totalIncome = databaseExpense.getAllExpenses().stream()
                 .filter(expense -> expense.getCategory().equals("Income"))
                 .mapToDouble(Expense::getAmount)
                 .sum();
 
+        // Total expenses consider expenses since the start of the app, or total expense.
         double totalExpenses = databaseExpense.getAllExpenses().stream()
                 .filter(expense -> !expense.getCategory().equals("Income"))
                 .mapToDouble(Expense::getAmount)

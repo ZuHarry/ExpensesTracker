@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.expensestracker.fragment.ExpenseFragment;
+import com.example.expensestracker.fragment.HomeExpenseFragment;
 import com.example.expensestracker.fragment.HomeFragment;
 import com.example.expensestracker.fragment.ProfileFragment;
+import com.example.expensestracker.fragment.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
  public class HomePage extends AppCompatActivity {
@@ -20,17 +22,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Set default fragment
-        loadFragment(new HomeFragment());
+        loadFragment(new HomeExpenseFragment());
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
             if (item.getItemId() == R.id.nav_home) {
-                selectedFragment = new HomeFragment();
+                selectedFragment = new HomeExpenseFragment();
             } else if (item.getItemId() == R.id.nav_search) {
                 selectedFragment = new ExpenseFragment();
-            } else if (item.getItemId() == R.id.nav_profile) {
-                selectedFragment = new ProfileFragment();
+            } else if (item.getItemId() == R.id.nav_settings) {
+                selectedFragment = new SettingsFragment();
             }
 
             return loadFragment(selectedFragment);
@@ -38,7 +40,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
     }
 
-     private boolean loadFragment(Fragment fragment) {
+     public boolean loadFragment(Fragment fragment) {
          if (fragment != null) {
              getSupportFragmentManager()
                      .beginTransaction()

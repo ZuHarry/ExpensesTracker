@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="budget_setting_button" type="id" />
+    <item name="profile_setting_button" type="id" />
+    <item name="backup_data_button" type="id" />
+</resources>

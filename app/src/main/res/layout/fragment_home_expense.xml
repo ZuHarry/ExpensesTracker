@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1ACF9A"
-    android:orientation="vertical"
     tools:context=".fragment.HomeExpenseFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/tvExpenseTracker"
@@ -45,30 +43,53 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
+
         <com.example.expensestracker.customview.PieChartView
             android:id="@+id/pieChartView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="100dp" />
 
+        <TextView
+            android:id="@+id/BudgetBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="0dp"
+            android:text="Balance in a week"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/BudgetBalanceTaget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:text="RM 150.00"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold|italic" />
 
         <LinearLayout
-            android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/toggle_background"
             android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:padding="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
 
             <Button
                 android:id="@+id/btnExpense"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:text="Expense"
                 android:textColor="@color/greenz" />
@@ -76,23 +97,23 @@
             <Button
                 android:id="@+id/btnIncome"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/light_gray"
                 android:text="Income"
-                android:textColor="@color/greenz" />
+                android:textColor="@color/greenz"/>
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/bottomSheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
             android:background="@drawable/bottom_sheet_background"
             android:orientation="vertical">
 
@@ -107,12 +128,23 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/dateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="02/Saptember/2025"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExpenseCategoryList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal"
                 android:visibility="visible"
@@ -121,7 +153,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExpenseIncomeList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -131,16 +163,17 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/greenz"
         android:src="@drawable/ic_add"
-        app:tint="@color/white" />
-
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Fab"
+        android:alpha="0.8" />
 
 </FrameLayout>
